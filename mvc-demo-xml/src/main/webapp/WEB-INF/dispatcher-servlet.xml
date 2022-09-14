@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/context 
+ http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan
+		base-package="com.persistent.training"></context:component-scan>
+
+	<bean
+		class="com.persistent.training.dao.EmployeeDAOImpl"
+		name="dao"  autowire = "byName">
+	</bean>
+
+	<bean
+		class="com.persistent.training.services.EmployeeServiceImpl"
+		name="service"  autowire = "byName">
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		name="viewResolver">
+		<property name="prefix" value="/WEB-INF/views/">
+		</property>
+		<property name="suffix" value=".jsp">
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		name="dataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/kpt_spring_jdbc">
+		</property>
+		<property name="username" value="root">
+		</property>
+		<property name="password" value="admin">
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.jdbc.core.JdbcTemplate"
+		name="jdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+</beans>
